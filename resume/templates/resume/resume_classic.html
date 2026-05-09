@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ data.name }} - Resume</title>
+
+ <style>
+
+/* ===== A4 PAGE SETUP ===== */
+@page {
+    size: A4;
+    margin: 18mm;
+}
+
+/* ===== BODY ===== */
+body {
+    font-family: "Georgia", serif;
+    font-size: 10px;
+    line-height: 1.6;
+    color: #444;
+    margin: 0;
+    background: #ffffff;
+}
+
+/* ===== MAIN CONTAINER ===== */
+.container {
+    padding: 5px;
+    border-left: 4px solid #7a9b6f;
+    border-right: 4px solid #7a9b6f;
+    position: relative;
+}
+
+/* extra thin lines like the template */
+.container::before{
+    content:"";
+    position:absolute;
+    left:8px;
+    top:0;
+    bottom:0;
+    width:2px;
+    background:#c7d6c1;
+}
+
+.container::after{
+    content:"";
+    position:absolute;
+    right:8px;
+    top:0;
+    bottom:0;
+    width:2px;
+    background:#c7d6c1;
+}
+
+/* ===== NAME ===== */
+h1 {
+    font-size:40px;
+    margin:0;
+    color:#5f7f55;
+    font-weight:500;
+    line-height:1.1;
+}
+
+/* ===== SECTION HEADINGS ===== */
+h2 {
+    font-size:15px;
+    margin:28px 0 8px 0;
+    color:#5f7f55;
+    border-bottom:none;
+    text-transform:none;
+    font-weight:700;
+}
+
+/* ===== HEADER ===== */
+.header {
+    text-align:left;
+    margin-bottom:20px;
+}
+
+.job-title {
+    font-size:14px;
+    font-weight:600;
+    margin-top:15px;
+    color:#444;
+}
+
+.contact {
+    font-size:12px;
+    color:#555;
+    margin-top:6px;
+}
+
+/* ===== SECTION SPACING ===== */
+
+
+/* ===== EXPERIENCE / EDUCATION ITEMS ===== */
+.project-item {
+    margin-bottom:10px;
+    font-size:13px;
+}
+
+/* ===== REMOVE EXTRA GAPS ===== */
+p {
+    margin:0;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>{{ data.name|default:"Your Name" }}</h1>
+
+        {% if data.job_title %}
+            <div class="job-title">{{ data.job_title }}</div>
+        {% endif %}
+
+        <div class="contact">
+            {% if data.email %}{{ data.email }}{% endif %}
+            {% if data.phone %} | {{ data.phone }}{% endif %}
+        </div>
+    </div>
+
+    <!-- SKILLS -->
+    {% if data.skills %}
+    <h2>Skills</h2>
+    <div class="section">
+        {{ data.skills }}
+    </div>
+    {% endif %}
+
+    <!-- EXPERIENCE -->
+    {% if data.experience_type or data.experience_years %}
+    <h2>Experience</h2>
+    <div class="section">
+        {% if data.experience_type %}
+            {{ data.experience_type|title }}
+        {% endif %}
+        {% if data.experience_years %}
+            – {{ data.experience_years }}
+        {% endif %}
+    </div>
+    {% endif %}
+
+{% if data.experience_type == "experienced" %}
+
+<h2>Experience</h2>
+
+<div class="project-item">
+
+<strong>{{ data.exp_job_title }}</strong><br>
+
+{{ data.exp_company }}<br>
+
+{{ data.exp_start }} - {{ data.exp_end }}
+<h4>Job Description</h4>
+{% if data.exp_description %}
+<p>{{ data.exp_description }}</p>
+{% endif %}
+
+</div>
+
+{% endif %}
+
+    <!-- PROJECTS -->
+    {% if data.projects %}
+    <h2>Projects</h2>
+    <div class="section">
+        {% for project in data.projects.splitlines %}
+            {% if project %}
+                <div class="project-item">{{ project }}</div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- EDUCATION -->
+    {% if data.education %}
+    <h2>Education</h2>
+    <div class="section">
+        {% for edu in data.education.splitlines %}
+            {% if edu %}
+                <div class="project-item">{{ edu }}</div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Resume Analyzer</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<style>
+
+/* 🌈 Background */
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ✨ Glass Card */
+.glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    color: white;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* 🧠 Title */
+.title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+/* 📁 File Input */
+input[type="file"] {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+}
+
+/* 🔘 Button */
+.btn-analyze {
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.btn-analyze:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(0, 114, 255, 0.5);
+}
+
+/* ✨ Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 📱 Responsive */
+@media (max-width: 576px) {
+    .glass-card {
+        padding: 25px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="glass-card">
+
+    <div class="title">
+        <i class="bi bi-robot"></i> AI Resume Analyzer
+    </div>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="mb-4">
+            <input type="file" name="resume" class="form-control">
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-analyze text-white">
+                <i class="bi bi-lightning-charge"></i> Analyze Resume
+            </button>
+        </div>
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ data.name }} - Resume</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+@page {
+    size: A4;
+    margin: 15mm;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: #333;
+}
+
+h1 {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 14px;
+    border-bottom: 1px solid #ccc;
+    margin-top: 15px;
+    text-transform: uppercase;
+}
+
+.section {
+    margin-top: 5px;
+}
+
+.item {
+    margin-bottom: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="text-center">
+        <h1>{{ data.name }}</h1>
+        <p>
+            {{ data.job_title }} <br>
+            {{ data.email }} | {{ data.phone }}
+        </p>
+    </div>
+
+    <!-- SKILLS -->
+    {% if data.skills %}
+    <h2>Skills</h2>
+    <div class="section">
+        {% for skill in data.skills.splitlines %}
+            <div class="item">• {{ skill }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- EXPERIENCE -->
+    {% if data.experience_type %}
+    <h2>Experience</h2>
+
+    <div class="section">
+        {{ data.experience_type|title }} – {{ data.experience_years }}
+    </div>
+
+    {% if data.experience_type|lower == "experienced" and data.exp_job_title %}
+    <div class="item mt-2">
+        <b>{{ data.exp_job_title }}</b><br>
+        {{ data.exp_company }}<br>
+        {{ data.exp_start }} - {{ data.exp_end }}
+        <h4>Job Description</h4>
+        <p>{{ data.exp_description }}</p>
+    </div>
+    {% endif %}
+
+    {% endif %}
+
+    <!-- PROJECTS -->
+    {% if data.projects %}
+    <h2>Projects</h2>
+    <div class="section">
+        {% for project in data.projects.splitlines %}
+            <div class="item">• {{ project }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- EDUCATION -->
+    {% if data.education %}
+    <h2>Education</h2>
+    <div class="section">
+        {% for edu in data.education.splitlines %}
+            <div class="item">• {{ edu }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
